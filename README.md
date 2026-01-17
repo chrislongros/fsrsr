@@ -1,4 +1,4 @@
-# fsrsr
+# r-fsrs
 
 R bindings for [fsrs-rs](https://github.com/open-spaced-repetition/fsrs-rs), the Rust implementation of the Free Spaced Repetition Scheduler algorithm.
 
