@@ -1,2 +1,6 @@
 useDynLib(rfsrs, .registration = TRUE)
-exportPattern("^[[:alpha:]]+")
+export(fsrs_default_parameters)
+export(fsrs_next_interval)
+export(fsrs_initial_state)
+export(fsrs_next_state)
+export(fsrs_retrievability)
