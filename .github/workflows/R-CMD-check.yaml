@@ -1,5 +1,3 @@
-# Workflow derived from https://github.com/r-lib/actions/tree/v2/examples
-# Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
 on:
   push:
     branches: [main, master]
@@ -11,19 +9,16 @@ name: R-CMD-check
 jobs:
   R-CMD-check:
     runs-on: ${{ matrix.config.os }}
-
     name: ${{ matrix.config.os }} (${{ matrix.config.r }})
 
     strategy:
       fail-fast: false
       matrix:
         config:
-          - {os: macos-latest,   r: 'release'}
-          - {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release'}
-          - {os: ubuntu-latest,   r: 'release'}
-          - {os: ubuntu-latest,   r: 'oldrel-1'}
-          # Windows disabled due to Rust cross-compilation issues
-          # - {os: windows-latest, r: 'release'}
+          - {os: macos-latest,   r: 'release', error-on: 'warning'}
+          - {os: ubuntu-latest,  r: 'devel', http-user-agent: 'release', error-on: 'error'}
+          - {os: ubuntu-latest,  r: 'release', error-on: 'warning'}
+          - {os: ubuntu-latest,  r: 'oldrel-1', error-on: 'warning'}
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -51,3 +46,4 @@ jobs:
       - uses: r-lib/actions/check-r-package@v2
         with:
           upload-snapshots: true
+          error-on: ${{ matrix.config.error-on }}
